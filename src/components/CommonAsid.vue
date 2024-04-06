@@ -7,18 +7,23 @@
       background-color="#545c64"
       text-color="#fff"
       active-text-color="#ffd04b">
-    <h3>图书馆管理系统</h3>
+    <h3 v-if="this.$store.state.tab.isCollapse === false">图书馆后台管理系统</h3>
+    <h3 v-else>图书馆</h3>
+
+    <!-- 无子菜单 -->
     <el-menu-item @click="clickMenu(item)" v-for="item in noChildren" :key="item.name" :index="item.name">
       <i :class="`el-icon-${item.icon}`"></i>
       <span slot="title">{{ item.label }}</span>
     </el-menu-item>
+
+    <!-- 有子菜单 -->
     <el-submenu v-for="item in hasChildren" :key="item.label" :index="item.label">
       <template slot="title">
         <i :class="`el-icon-${item.icon}`"></i>
         <span slot="title">{{ item.label }}</span>
       </template>
       <el-menu-item-group v-for="subItem in item.children" :key="subItem.name" :index="subItem.name">
-        <el-menu-item :index="subItem.name">{{ subItem.label }}</el-menu-item>
+        <el-menu-item @click="clickMenu(subItem)" :index="subItem.name">{{ subItem.label }}</el-menu-item>
       </el-menu-item-group>
     </el-submenu>
   </el-menu>
@@ -58,11 +63,24 @@ export default {
           url: 'analysis/analysis'
         },
         {
-          path: '/system',
-          name: 'system',
           label: '系统管理',
           icon: 's-home',
-          url: 'system/system'
+          children: [
+            {
+              path: '/user',
+              name: 'user',
+              label: '用户管理',
+              icon: 's-home',
+              url: 'user/user'
+            },
+            {
+              path: '/role',
+              name: 'role',
+              label: '角色管理',
+              icon: 's-home',
+              url: 'role/role'
+            }
+          ]
         },
         {
           label: '其他',

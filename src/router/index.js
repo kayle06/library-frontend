@@ -6,7 +6,8 @@ import Main from '../views/Main.vue'
 import Book from '../views/Book.vue'
 import Borrow from '../views/Borrow.vue'
 import Analysis from '../views/Analysis.vue'
-import System from "@/views/System.vue";
+import System from "@/views/System.vue"
+import Role from "@/views/Role.vue"
 
 
 Vue.use(VueRouter)
@@ -39,7 +40,17 @@ const routes = [
             },
             {
                 path: '/system',
-                 component: System
+                component: System,
+                children: [
+                    {
+                        path: '/user',
+                        component: User
+                    },
+                    {
+                        path: '/role',
+                        component: Role
+                    },
+                ]
             }
         ]
     }

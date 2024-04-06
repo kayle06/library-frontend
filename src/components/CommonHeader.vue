@@ -2,7 +2,6 @@
   <div class="header-content">
     <div class="left-content">
       <el-button @click="handleMenu" icon="el-icon-menu" size="mini"></el-button>
-      <span class="text">首页</span>
     </div>
     <div class="right-content">
       <el-dropdown>
