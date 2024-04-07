@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    我是 analysis
+    我是 Category
   </div>
 </template>
 

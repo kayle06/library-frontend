@@ -19,3 +19,7 @@ export const updateUser = (data) => {
 export const createUser = (data) => {
     return http.post('/admin/user/add', data)
 }
+
+export const getBookAnalysis = () => {
+    return http.get('/admin/analysis/book')
+}

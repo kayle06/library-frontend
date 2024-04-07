@@ -9,7 +9,7 @@
         :visible.sync="dialogVisible"
         :before-cloce="handleClose"
         width="50%">
-      <el-form ref="form" :rules="rule" :inline="true" :model="form" label-width="80px">
+      <el-form label-position="left" ref="form" :rules="rule" :inline="true" :model="form" label-width="80px">
         <el-form-item label="用户名" prop="username">
           <el-input v-model="form.username"></el-input>
         </el-form-item>
@@ -54,11 +54,7 @@
 
     <el-table
         :data="tableData"
-        style="width: 100%">
-      <!--      <el-table-column-->
-      <!--          prop="number"-->
-      <!--          label="序号"-->
-      <!--          width="70"/>-->
+        height="90%">
       <el-table-column
           prop="studentId"
           label="学号"
@@ -205,6 +201,9 @@ export default {
 </script>
 
 <style scoped lang="less">
+.manage {
+  height: 90%;
+}
 .manage-header {
   text-align: left;
 }

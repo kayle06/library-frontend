@@ -42,25 +42,71 @@ export default {
           url: 'home/home'
         },
         {
-          path: '/book',
-          name: 'book',
           label: '图书管理',
           icon: 's-home',
-          url: 'book/book'
+          children: [
+            {
+              path: '/book',
+              name: 'book',
+              label: '图书管理',
+              icon: 's-home',
+              url: 'book/book'
+            },
+            {
+              path: '/category',
+              name: 'category',
+              label: '分类管理',
+              icon: 's-home',
+              url: 'category/category'
+            },
+          ]
         },
         {
-          path: '/borrow',
-          name: 'borrow',
-          label: '借阅管理',
+          label: '图书服务',
           icon: 's-home',
-          url: 'borrow/borrow'
+          children: [
+            {
+              path: '/borrow',
+              name: 'borrow',
+              label: '借阅管理',
+              icon: 's-home',
+              url: 'borrow/borrow'
+            },
+            {
+              path: '/return',
+              name: 'return',
+              label: '归还管理',
+              icon: 's-home',
+              url: 'return/return'
+            },
+            {
+              path: '/renew',
+              name: 'renew',
+              label: '续借管理',
+              icon: 's-home',
+              url: 'renew/renew'
+            }
+          ]
         },
         {
-          path: '/analysis',
-          name: 'analysis',
           label: '数据分析',
           icon: 's-home',
-          url: 'analysis/analysis'
+          children: [
+            {
+              path: '/borrowAnalysis',
+              name: 'borrowAnalysis',
+              label: '借阅统计',
+              icon: 's-home',
+              url: 'borrowAnalysis/borrowAnalysis'
+            },
+            {
+              path: '/bookAnalysis',
+              name: 'bookAnalysis',
+              label: '图书统计',
+              icon: 's-home',
+              url: 'bookAnalysis/bookAnalysis'
+            }
+          ]
         },
         {
           label: '系统管理',
