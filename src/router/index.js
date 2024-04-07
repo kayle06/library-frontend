@@ -5,14 +5,14 @@ import User from '../views/User.vue'
 import Main from '../views/Main.vue'
 import Book from '../views/Book.vue'
 import Borrow from '../views/Borrow.vue'
-import Analysis from '../views/Analysis.vue'
-import System from "@/views/System.vue"
 import Role from "@/views/Role.vue"
 import BorrowAnalysis from "@/views/BorrowAnalysis.vue"
 import BookAnalysis from "@/views/BookAnalysis.vue"
 import Category from "@/views/Category.vue";
 import Return from "@/views/return.vue";
 import Renew from "@/views/Renew.vue";
+import BookCirculation from "@/views/BookCirculation.vue";
+import PopularBookAnalysis from "@/views/PopularBookAnalysis.vue";
 
 Vue.use(VueRouter)
 
@@ -53,6 +53,14 @@ const routes = [
             {
                 path: '/bookAnalysis',
                 component: BookAnalysis
+            },
+            {
+                path: '/bookCirculation',
+                component: BookCirculation
+            },
+            {
+                path: '/popularBookAnalysis',
+                component: PopularBookAnalysis
             },
             {
                 path: '/user',

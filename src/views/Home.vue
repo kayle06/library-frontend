@@ -43,11 +43,11 @@
       </el-card>
 
       <div class="graph">
-        <el-card style="height: 260px">
+        <el-card style="height: 280px">
           <div ref="echarts2" style="height: 260px"></div>
         </el-card>
-        <el-card style="height: 260px">
-          <div ref="echarts3" style="height: 240px"></div>
+        <el-card style="height: 280px">
+          <div ref="echarts3" style="height: 260px"></div>
         </el-card>
       </div>
     </el-col>
@@ -139,12 +139,16 @@ export default {
       // 柱状图
       const echarts2 = echarts.init(this.$refs.echarts2)
       const echarts2Option = {
-        legend: {
-          // 图例文字颜色
-          textStyle: {
-            color: '#333'
-          }
+        title: {
+          text: '本周借阅及归还情况',
+          left: 'center'
         },
+        // legend: {
+        //   // 图例文字颜色
+        //   textStyle: {
+        //     color: '#333'
+        //   },
+        // },
         grid: {
           left: "20%"
         },
@@ -193,6 +197,10 @@ export default {
       // 饼状图
       const echarts3 = echarts.init(this.$refs.echarts3)
       const echarts3Option = {
+        title: {
+          text: '本周TOP5占比',
+          left: 'center'
+        },
         tooltip: {
           trigger: 'item'
         },

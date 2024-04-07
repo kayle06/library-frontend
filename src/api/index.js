@@ -23,3 +23,10 @@ export const createUser = (data) => {
 export const getBookAnalysis = () => {
     return http.get('/admin/analysis/book')
 }
+export const getBookCirculation = () => {
+    return http.get('/admin/analysis/bookCirculation')
+}
+
+export const getPopularBookAnalysis = () => {
+    return http.get('/admin/analysis/popularBook')
+}

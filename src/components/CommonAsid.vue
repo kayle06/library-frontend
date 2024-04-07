@@ -93,18 +93,32 @@ export default {
           icon: 's-home',
           children: [
             {
-              path: '/borrowAnalysis',
-              name: 'borrowAnalysis',
-              label: '借阅统计',
+              path: '/popularBookAnalysis',
+              name: 'popularBookAnalysis',
+              label: '热门图书分析',
               icon: 's-home',
-              url: 'borrowAnalysis/borrowAnalysis'
+              url: 'popularBookAnalysis/popularBookAnalysis'
             },
+            // {
+            //   path: '/borrowAnalysis',
+            //   name: 'borrowAnalysis',
+            //   label: '借阅统计分析',
+            //   icon: 's-home',
+            //   url: 'borrowAnalysis/borrowAnalysis'
+            // },
             {
               path: '/bookAnalysis',
               name: 'bookAnalysis',
-              label: '图书统计',
+              label: '图书分类统计',
               icon: 's-home',
               url: 'bookAnalysis/bookAnalysis'
+            },
+            {
+              path: '/bookCirculation',
+              name: 'bookCirculation',
+              label: '图书流通统计',
+              icon: 's-home',
+              url: 'bookCirculation/bookCirculation'
             }
           ]
         },

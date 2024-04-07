@@ -34,12 +34,16 @@ export default {
         for (let i = 0; i < 7; i++) {
             List.push(
                 Mock.mock({
-                    "《算法导论》": Mock.Random.integer(100, 200),
-                    "《UNIX编程艺术》": Mock.Random.integer(300, 400),
-                    "《编程珠玑》": Mock.Random.integer(500, 600),
-                    "《代码大全》": Mock.Random.integer(700, 800),
-                    "《人月神话》": Mock.Random.integer(900, 1000),
-                    "《计算机网络》": Mock.Random.integer(1100, 1200)
+                    "《算法导论》": Mock.Random.integer(300, 1000),
+                    "《UNIX编程艺术》": Mock.Random.integer(300, 1000),
+                    "《编程珠玑》": Mock.Random.integer(300, 1000),
+                    "《代码大全》": Mock.Random.integer(300, 1000),
+                    "《人月神话》": Mock.Random.integer(300, 1000),
+                    // "《计算机网络》": Mock.Random.integer(300, 1000),
+                    // "《深入理解计算机系统》": Mock.Random.integer(300, 1000),
+                    // "《编译原理》": Mock.Random.integer(300, 1000),
+                    // "《计算机组成原理》": Mock.Random.integer(300, 1000),
+                    // "《操作系统》": Mock.Random.integer(300, 1000),
                 })
             )
         }
@@ -68,47 +72,63 @@ export default {
                         name: '《人月神话》',
                         value: List.map(item => item["《人月神话》"])
                     },
-                    {
-                        name: '《计算机网络》',
-                        value: List.map(item => item["《计算机网络》"])
-                    }
+                    // {
+                    //     name: '《计算机网络》',
+                    //     value: List.map(item => item["《计算机网络》"])
+                    // },
+                    // {
+                    //     name: '《深入理解计算机系统》',
+                    //     value: List.map(item => item["《深入理解计算机系统》"])
+                    // },
+                    // {
+                    //     name: '《编译原理》',
+                    //     value: List.map(item => item["《编译原理》"])
+                    // },
+                    // {
+                    //     name: '《计算机组成原理》',
+                    //     value: List.map(item => item["《计算机组成原理》"])
+                    // },
+                    // {
+                    //     name: '《操作系统》',
+                    //     value: List.map(item => item["《操作系统》"])
+                    // }
                 ],
                 // 柱状图
                 userData: [
                     {
                         "date": "周一",
-                        "borrowNum": 5,
-                        "returnNum": 4
+                        "borrowNum": Mock.Random.integer(300, 1000),
+                        "returnNum": Mock.Random.integer(300, 1000)
                     },
                     {
                         "date": "周二",
-                        "borrowNum": 10,
-                        "returnNum": 8
+                        "borrowNum": Mock.Random.integer(300, 1000),
+                        "returnNum": Mock.Random.integer(300, 1000)
                     },
                     {
                         "date": "周三",
-                        "borrowNum": 15,
-                        "returnNum": 12
+                        "borrowNum": Mock.Random.integer(300, 1000),
+                        "returnNum": Mock.Random.integer(300, 1000)
                     },
                     {
                         "date": "周四",
-                        "borrowNum": 20,
-                        "returnNum": 16
+                        "borrowNum": Mock.Random.integer(300, 1000),
+                        "returnNum": Mock.Random.integer(300, 1000)
                     },
                     {
                         "date": "周五",
-                        "borrowNum": 25,
-                        "returnNum": 20
+                        "borrowNum": Mock.Random.integer(300, 1000),
+                        "returnNum": Mock.Random.integer(300, 1000)
                     },
                     {
                         "date": "周六",
-                        "borrowNum": 30,
-                        "returnNum": 24
+                        "borrowNum": Mock.Random.integer(300, 1000),
+                        "returnNum": Mock.Random.integer(300, 1000)
                     },
                     {
                         "date": "周日",
-                        "borrowNum": 35,
-                        "returnNum": 28
+                        "borrowNum": Mock.Random.integer(300, 1000),
+                        "returnNum": Mock.Random.integer(300, 1000)
                     }
                 ],
                 // 折线图
@@ -119,34 +139,54 @@ export default {
                 tableData: [
                     {
                         bookName: '《算法导论》',
-                        borrowNum: 100,
-                        returnNum: 200
+                        borrowNum: Mock.Random.integer(300, 1000),
+                        returnNum: Mock.Random.integer(300, 1000)
                     },
                     {
                         bookName: '《UNIX编程艺术》',
-                        borrowNum: 300,
-                        returnNum: 400
+                        borrowNum: Mock.Random.integer(300, 1000),
+                        returnNum: Mock.Random.integer(300, 1000)
                     },
                     {
                         bookName: '《编程珠玑》',
-                        borrowNum: 500,
-                        returnNum: 600
+                        borrowNum: Mock.Random.integer(300, 1000),
+                        returnNum: Mock.Random.integer(300, 1000)
                     },
                     {
                         bookName: '《代码大全》',
-                        borrowNum: 700,
-                        returnNum: 800
+                        borrowNum: Mock.Random.integer(300, 1000),
+                        returnNum: Mock.Random.integer(300, 1000)
                     },
                     {
                         bookName: '《人月神话》',
-                        borrowNum: 900,
-                        returnNum: 1000
+                        borrowNum: Mock.Random.integer(300, 1000),
+                        returnNum: Mock.Random.integer(300, 1000)
                     },
-                    {
-                        bookName: '《计算机网络》',
-                        borrowNum: 1100,
-                        returnNum: 1200
-                    }
+                    // {
+                    //     bookName: '《计算机网络》',
+                    //     borrowNum: Mock.Random.integer(300, 1000),
+                    //     returnNum: Mock.Random.integer(300, 1000)
+                    // },
+                    // {
+                    //     bookName: '《深入理解计算机系统》',
+                    //     borrowNum: Mock.Random.integer(300, 1000),
+                    //     returnNum: Mock.Random.integer(300, 1000)
+                    // },
+                    // {
+                    //     bookName: '《编译原理》',
+                    //     borrowNum: Mock.Random.integer(300, 1000),
+                    //     returnNum: Mock.Random.integer(300, 1000)
+                    // },
+                    // {
+                    //     bookName: '《计算机组成原理》',
+                    //     borrowNum: Mock.Random.integer(300, 1000),
+                    //     returnNum: Mock.Random.integer(300, 1000)
+                    // },
+                    // {
+                    //     bookName: '《操作系统》',
+                    //     borrowNum: Mock.Random.integer(300, 1000),
+                    //     returnNum: Mock.Random.integer(300, 1000)
+                    // }
                 ]
             }
         }

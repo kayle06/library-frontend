@@ -2,6 +2,8 @@ import Mock from 'mockjs'
 import homeTable from './mockServeData/home'
 import user from "@/api/mockServeData/user";
 import bookAnalysis from "@/api/mockServeData/BookAnalysis";
+import bookCirculation from "@/api/mockServeData/BookCirculation";
+import popularBookAnalysis from "@/api/mockServeData/popularBookAnalysis";
 
 Mock.mock('/api/home/table', homeTable.getStatisticalData())
 
@@ -13,3 +15,5 @@ Mock.mock('/api/admin/user/add', 'post', user.createUser)
 
 // 书籍分析数据
 Mock.mock('/api/admin/analysis/book', 'get', bookAnalysis.getBarChart)
+Mock.mock('/api/admin/analysis/bookCirculation', 'get', bookCirculation.generateBookCirculationData)
+Mock.mock('/api/admin/analysis/popularBook', 'get', popularBookAnalysis.getPopularBookAnalysis)

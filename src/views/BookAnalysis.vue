@@ -1,25 +1,27 @@
 <template>
-  <div>
-    <div ref="barChart" style="height: 400px"/>
+  <div class="top">
+    <div ref="pieChart" style="height: 350px"/>
+    <div ref="barChart" style="height: 350px"/>
   </div>
 </template>
 
 <script>
 import * as echarts from 'echarts';
-import { getBookAnalysis } from "@/api";
+import {getBookAnalysis} from "@/api";
 
 export default {
   data() {
-    return {
-    }
+    return {}
   },
   mounted() {
     getBookAnalysis().then(response => {
-      const { data } = response.data
+      const {data} = response.data
       const barChart = echarts.init(this.$refs.barChart)
+      const pieChart = echarts.init(this.$refs.pieChart)
       barChart.setOption({
         title: {
-          text: '图书分类统计'
+          text: '图书分类统计',
+          left: 'center'
         },
         tooltip: {
           trigger: 'axis',
@@ -47,6 +49,37 @@ export default {
           data: data.map(item => item.number),
           type: 'bar'
         }]
+      })
+      pieChart.setOption({
+        title: {
+          text: '图书分类占比',
+          left: 'center'
+        },
+        tooltip: {
+          trigger: 'item',
+          formatter: '{a} <br/>{b} : {c} ({d}%)'
+        },
+        legend: {
+          orient: 'vertical',
+          left: 'left',
+          data: data.map(item => item.category)
+        },
+        series: [
+          {
+            name: '图书分类',
+            type: 'pie',
+            radius: '55%',
+            center: ['50%', '60%'],
+            data: data.map(item => ({name: item.category, value: item.number})),
+            emphasis: {
+              itemStyle: {
+                shadowBlur: 10,
+                shadowOffsetX: 0,
+                shadowColor: 'rgba(0, 0, 0, 0.5)'
+              }
+            }
+          }
+        ]
       })
     })
   },
