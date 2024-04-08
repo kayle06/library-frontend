@@ -4,6 +4,8 @@ import user from "@/api/mockServeData/user";
 import bookAnalysis from "@/api/mockServeData/BookAnalysis";
 import bookCirculation from "@/api/mockServeData/BookCirculation";
 import popularBookAnalysis from "@/api/mockServeData/popularBookAnalysis";
+import book from "@/api/mockServeData/book";
+import category from "@/api/mockServeData/category";
 
 Mock.mock('/api/home/table', homeTable.getStatisticalData())
 
@@ -17,3 +19,7 @@ Mock.mock('/api/admin/user/add', 'post', user.createUser)
 Mock.mock('/api/admin/analysis/book', 'get', bookAnalysis.getBarChart)
 Mock.mock('/api/admin/analysis/bookCirculation', 'get', bookCirculation.generateBookCirculationData)
 Mock.mock('/api/admin/analysis/popularBook', 'get', popularBookAnalysis.getPopularBookAnalysis)
+
+// 图书管理
+Mock.mock('/api/admin/book/list', 'get', book.getBookList)
+Mock.mock('/api/admin/book/category', 'get', category.getCategoryList)

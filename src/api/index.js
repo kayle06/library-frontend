@@ -30,3 +30,11 @@ export const getBookCirculation = () => {
 export const getPopularBookAnalysis = () => {
     return http.get('/admin/analysis/popularBook')
 }
+
+export const getBookList = (params) => {
+    return http.get('/admin/book/list', { params })
+}
+
+export const getCategoryList = () => {
+    return http.get('/admin/book/category')
+}
