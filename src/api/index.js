@@ -38,3 +38,11 @@ export const getBookList = (params) => {
 export const getCategoryList = () => {
     return http.get('/admin/book/category')
 }
+
+export const getBorrowList = () => {
+    return http.get('/admin/borrow/list')
+}
+
+export const getRoleList = () => {
+    return http.get('/admin/role/list')
+}

@@ -71,37 +71,37 @@ export default {
       countData: [
         {
           name: '今日进货图书',
-          value: 12,
+          value: 31,
           icon: 'success',
           "color": "#67c23a"
         },
         {
           name: '今日借阅图书',
-          value: 12,
+          value: 290,
           icon: 'success',
           "color": "#67c23a"
         },
         {
           name: '今日归还图书',
-          value: 12,
+          value: 491,
           icon: 'success',
           "color": "#67c23a"
         },
         {
           name: '今日预定图书',
-          value: 12,
+          value: 83,
           icon: 'success',
           "color": "#67c23a"
         },
         {
           name: '今日逾期图书',
-          value: 12,
+          value: 11,
           icon: 'success',
           "color": "#67c23a"
         },
         {
           name: '今日新增用户',
-          value: 12,
+          value: 110,
           icon: 'success',
           "color": "#67c23a"
         },

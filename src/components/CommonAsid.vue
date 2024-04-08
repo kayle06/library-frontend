@@ -142,26 +142,26 @@ export default {
             }
           ]
         },
-        {
-          label: '其他',
-          icon: 'location',
-          children: [
-            {
-              path: '/about',
-              name: 'about',
-              label: '关于我们',
-              icon: 's-home',
-              url: 'about/about'
-            },
-            {
-              path: '/contact',
-              name: 'contact',
-              label: '联系我们',
-              icon: 's-home',
-              url: 'contact/contact'
-            }
-          ]
-        }
+        // {
+        //   label: '其他',
+        //   icon: 'location',
+        //   children: [
+        //     {
+        //       path: '/about',
+        //       name: 'about',
+        //       label: '关于我们',
+        //       icon: 's-home',
+        //       url: 'about/about'
+        //     },
+        //     {
+        //       path: '/contact',
+        //       name: 'contact',
+        //       label: '联系我们',
+        //       icon: 's-home',
+        //       url: 'contact/contact'
+        //     }
+        //   ]
+        // }
       ]
     };
   },

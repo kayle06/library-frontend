@@ -1,7 +1,7 @@
 <template>
   <div class="manage">
     <div class="manage-header">
-      <el-button type="primary" @click="handleAdd" style="text-align: left">+ 新增图书</el-button>
+      <el-button type="primary" @click="handleAdd" style="text-align: left">+ 新增分类</el-button>
     </div>
 
     <el-dialog
