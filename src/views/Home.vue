@@ -39,7 +39,7 @@
 
       <!--      折线图-->
       <el-card style="height: 280px">
-        <div ref="echarts1" style="height: 280px;"></div>
+        <div ref="echarts1" style="height: 260px;"></div>
       </el-card>
 
       <div class="graph">
@@ -110,31 +110,52 @@ export default {
   },
   mounted() {
     getStatisticalData().then(({data}) => {
-      console.log(data)
-      const {tableData} = data.data
+      const {orderData, userData, videoData, tableData} = data.data
       this.tableData = tableData
 
       // 折线图
       const echarts1 = echarts.init(this.$refs.echarts1)
-      var echarts1Option = {}
-      const {orderData, userData, videoData} = data.data
-      console.log(orderData)
-      const xAxis = Object.keys(orderData.data[0])
-      const xAxisData = {
-        data: xAxis
-      }
-      echarts1Option.xAxis = xAxisData
-      echarts1Option.legend = xAxisData
-      echarts1Option.yAxis = {}
-      echarts1Option.series = []
-      xAxis.forEach(key => {
-        echarts1Option.series.push({
-          name: key,
+      const series = []
+      orderData.data.map(item => {
+        series.push({
+          name: item.bookName,
           type: 'line',
-          data: orderData.data.map(item => item[key])
+          data: item.sellQuantity
         })
       })
-      echarts1.setOption(echarts1Option)
+      console.log(orderData.date)
+      echarts1.setOption({
+        title: {
+          text: '周售出TOP5'
+        },
+        tooltip: {
+          trigger: 'axis'
+        },
+        legend: {
+          data: series.map(item => item.name),
+          top: 30
+        },
+        grid: {
+          left: '3%',
+          right: '4%',
+          bottom: '3%',
+          containLabel: true
+        },
+        toolbox: {
+          feature: {
+            saveAsImage: {}
+          }
+        },
+        xAxis: {
+          type: 'category',
+          boundaryGap: false,
+          data: orderData.date
+        },
+        yAxis: {
+          type: 'value'
+        },
+        series: series
+      })
 
       // 柱状图
       const echarts2 = echarts.init(this.$refs.echarts2)
@@ -198,7 +219,7 @@ export default {
       const echarts3 = echarts.init(this.$refs.echarts3)
       const echarts3Option = {
         title: {
-          text: '本周TOP5占比',
+          text: '本周借阅TOP5占比',
           left: 'center'
         },
         tooltip: {

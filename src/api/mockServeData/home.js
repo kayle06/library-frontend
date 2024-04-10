@@ -133,8 +133,30 @@ export default {
                 ],
                 // 折线图
                 orderData: {
-                    date: ['20191001', '20191002', '20191003', '20191004', '20191005', '20191006', '20191007'],
-                    data: List
+                    date: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
+                    data: [
+                        {
+                            bookName: '《算法导论》',
+                            // 数组
+                            sellQuantity: List.map(item => item["《算法导论》"])
+                        },
+                        {
+                            bookName: '《UNIX编程艺术》',
+                            sellQuantity: List.map(item => item["《UNIX编程艺术》"])
+                        },
+                        {
+                            bookName: '《编程珠玑》',
+                            sellQuantity: List.map(item => item["《编程珠玑》"])
+                        },
+                        {
+                            bookName: '《代码大全》',
+                            sellQuantity: List.map(item => item["《代码大全》"])
+                        },
+                        {
+                            bookName: '《人月神话》',
+                            sellQuantity: List.map(item => item["《人月神话》"])
+                        }
+                    ]
                 },
                 tableData: [
                     {

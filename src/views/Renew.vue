@@ -51,12 +51,12 @@
           width="350"/>
       <el-table-column
           prop="borrower"
-          label="归还者"
+          label="续借者"
           width="130">
       </el-table-column>
       <el-table-column
           prop="borrowDate"
-          label="归还时间"/>
+          label="续借时间"/>
       <el-table-column
           prop="dueData"
           label="应还时间"/>
@@ -178,9 +178,9 @@ export default {
   filters: {
     statusText(status) {
       const categoryMap = {
-        0: '已归还',
-        1: '已归还',
-        2: '已归还',
+        0: '续借中',
+        1: '续借中',
+        2: '续借中',
       };
       return categoryMap[status];
     }
