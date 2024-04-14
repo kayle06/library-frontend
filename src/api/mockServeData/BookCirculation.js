@@ -22,7 +22,7 @@ export default {
                 "values": returnValues
             },
             {
-                "name": "续借量",
+                "name": "预约量",
                 "values": renewValues
             }
         ];

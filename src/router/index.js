@@ -10,7 +10,7 @@ import BorrowAnalysis from "@/views/BorrowAnalysis.vue"
 import BookAnalysis from "@/views/BookAnalysis.vue"
 import Category from "@/views/Category.vue";
 import Return from "@/views/return.vue";
-import Renew from "@/views/Renew.vue";
+import Reservation from "@/views/Reservation.vue";
 import BookCirculation from "@/views/BookCirculation.vue";
 import PopularBookAnalysis from "@/views/PopularBookAnalysis.vue";
 
@@ -39,8 +39,8 @@ const routes = [
                 component: Return
             },
             {
-                path: 'renew',
-                component: Renew
+                path: 'reservation',
+                component: Reservation
             },
             {
                 path: 'category',

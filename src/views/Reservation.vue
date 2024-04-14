@@ -51,26 +51,16 @@
           width="350"/>
       <el-table-column
           prop="borrower"
-          label="续借者"
+          label="预约者"
           width="130">
       </el-table-column>
       <el-table-column
           prop="borrowDate"
-          label="续借时间"/>
-      <el-table-column
-          prop="dueData"
-          label="应还时间"/>
-      <el-table-column
-          prop="status"
-          label="状态">
-        <template slot-scope="scope">
-          {{ scope.row.status | statusText }}
-        </template>
-      </el-table-column>
+          label="预约时间"/>
       <el-table-column
           label="操作">
         <template slot-scope="scope">
-          <el-button type="primary" size="small" @click="handleEdit(scope.row)">编辑</el-button>
+          <el-button type="success" size="small" @click="handleEdit(scope.row)">同意</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -178,9 +168,9 @@ export default {
   filters: {
     statusText(status) {
       const categoryMap = {
-        0: '续借中',
-        1: '续借中',
-        2: '续借中',
+        0: '借阅中',
+        1: '已延期',
+        2: '已延期',
       };
       return categoryMap[status];
     }

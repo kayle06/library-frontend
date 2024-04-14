@@ -39,15 +39,15 @@
 
       <!--      折线图-->
       <el-card style="height: 280px">
-        <div ref="echarts1" style="height: 260px;"></div>
+        <div ref="echarts1" style="height: 260px; width: 100%"></div>
       </el-card>
 
       <div class="graph">
         <el-card style="height: 280px">
-          <div ref="echarts2" style="height: 260px"></div>
+          <div ref="echarts2" style="height: 260px; width: 100%"></div>
         </el-card>
         <el-card style="height: 280px">
-          <div ref="echarts3" style="height: 260px"></div>
+          <div ref="echarts3" style="height: 260px; width: 100%"></div>
         </el-card>
       </div>
     </el-col>
@@ -55,8 +55,8 @@
 </template>
 
 <script>
-import {getStatisticalData} from "@/api";
 import * as echarts from 'echarts'
+import * as axios from '@/api/index'
 
 export default {
   name: "Home",
@@ -65,12 +65,12 @@ export default {
       tableData: [],
       tableLabel: {
         bookName: '图书名称',
-        borrowNum: '总借阅数量',
-        returnNum: '总归还数量'
+        borrowCount: '总借阅数量',
+        returnCount: '总归还数量'
       },
       countData: [
         {
-          name: '今日进货图书',
+          name: '今日新增图书',
           value: 31,
           icon: 'success',
           "color": "#67c23a"
@@ -88,7 +88,7 @@ export default {
           "color": "#67c23a"
         },
         {
-          name: '今日预定图书',
+          name: '今日预约图书',
           value: 83,
           icon: 'success',
           "color": "#67c23a"
@@ -108,7 +108,31 @@ export default {
       ]
     }
   },
+  methods: {
+    getTop5Data() {
+      axios.getTop5Data().then(({data}) => {
+        this.tableData = data.data
+      }).catch((error) => {
+        this.$message.error(error.message)
+      })
+    },
+    getTodayData() {
+      axios.getTodayData().then(({data}) => {
+        const { borrowCount, newUserCount, overdueCount, purchaseCount, reserveCount, returnCount } = data.data
+        this.countData[0].value = purchaseCount
+        this.countData[1].value = borrowCount
+        this.countData[2].value = returnCount
+        this.countData[3].value = reserveCount
+        this.countData[4].value = overdueCount
+        this.countData[5].value = newUserCount
+      }).catch((error) => {
+        this.$message.error(error.message)
+      })
+    }
+  },
   mounted() {
+    this.getTop5Data()
+    this.getTodayData()
     getStatisticalData().then(({data}) => {
       const {orderData, userData, videoData, tableData} = data.data
       this.tableData = tableData

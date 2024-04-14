@@ -80,11 +80,11 @@ export default {
               url: 'return/return'
             },
             {
-              path: '/renew',
-              name: 'renew',
-              label: '续借管理',
+              path: '/reservation',
+              name: 'reservation',
+              label: '预约管理',
               icon: 's-home',
-              url: 'renew/renew'
+              url: 'reservation/reservation'
             }
           ]
         },

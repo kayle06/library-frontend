@@ -9,25 +9,24 @@ import category from "@/api/mockServeData/category";
 import borrow from "@/api/mockServeData/borrow";
 import role from "@/api/mockServeData/role";
 
-Mock.mock('/api/home/table', homeTable.getStatisticalData())
+Mock.mock('http://localhost:1290/api/home/table', homeTable.getStatisticalData())
 
 // 用户列表数据
-Mock.mock('/api/admin/user/list', 'get', user.getUserList)
-Mock.mock('/api/admin/user/delete', 'post', user.deleteUser)
-Mock.mock('/api/admin/user/update', 'post', user.updateUser)
-Mock.mock('/api/admin/user/add', 'post', user.createUser)
-
+Mock.mock('http://localhost:1290/api/admin/user/list', 'get', user.getUserList)
+Mock.mock('http://localhost:1290/api/admin/user/delete', 'post', user.deleteUser)
+Mock.mock('http://localhost:1290/api/admin/user/update', 'post', user.updateUser)
+Mock.mock('http://localhost:1290/api/admin/user/add', 'post', user.createUser)
 // 书籍分析数据
-Mock.mock('/api/admin/analysis/book', 'get', bookAnalysis.getBarChart)
-Mock.mock('/api/admin/analysis/bookCirculation', 'get', bookCirculation.generateBookCirculationData)
-Mock.mock('/api/admin/analysis/popularBook', 'get', popularBookAnalysis.getPopularBookAnalysis)
+Mock.mock('http://localhost:1290/api/admin/analysis/book', 'get', bookAnalysis.getBarChart)
+Mock.mock('http://localhost:1290/api/admin/analysis/bookCirculation', 'get', bookCirculation.generateBookCirculationData)
+Mock.mock('http://localhost:1290/api/admin/analysis/popularBook', 'get', popularBookAnalysis.getPopularBookAnalysis)
 
 // 图书管理
-Mock.mock('/api/admin/book/list', 'get', book.getBookList)
-Mock.mock('/api/admin/book/category', 'get', category.getCategoryList)
+Mock.mock('http://localhost:1290/api/admin/book/list', 'get', book.getBookList)
+Mock.mock('http://localhost:1290/api/admin/book/category', 'get', category.getCategoryList)
 
 // 图书服务
-Mock.mock('/api/admin/borrow/list', 'get', borrow.getBorrowList)
+Mock.mock('http://localhost:1290/api/admin/borrow/list', 'get', borrow.getBorrowList)
 
 // 角色管理
-Mock.mock('/api/admin/role/list', 'get', role.getRoleList)
+Mock.mock('http://localhost:1290/api/admin/role/list', 'get', role.getRoleList)

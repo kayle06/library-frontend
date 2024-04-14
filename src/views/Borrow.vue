@@ -51,7 +51,7 @@
       <el-table-column
           prop="title"
           label="图书名"
-          width="250"/>
+          width="300"/>
       <el-table-column
           prop="borrower"
           label="借阅者"
@@ -65,16 +65,19 @@
           label="应还时间"/>
       <el-table-column
           prop="status"
-          label="状态">
+          label="状态"
+          width="100">
         <template slot-scope="scope">
           {{ scope.row.status | statusText }}
         </template>
       </el-table-column>
+<!--      居中-->
       <el-table-column
-          label="操作">
+          label="操作"
+          align="center">
         <template slot-scope="scope">
+          <el-button type="success" size="small" @click="handleReturn(scope.row)">归还</el-button>
           <el-button type="primary" size="small" @click="handleEdit(scope.row)">编辑</el-button>
-          <el-button type="danger" size="small" @click="handleDelete(scope.row)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
