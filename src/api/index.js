@@ -12,6 +12,9 @@ export const getTodayData = () => {
 export const getCategoryData = ( params ) => {
     return http.get("/category/list",
         { params })}
+export const getAllCategory = () => {
+    return http.get("/category/listAll")
+}
 export const getCategoryDetail = ( id ) => {
     return http.get("/category/detail/" + id)
 }
@@ -28,7 +31,18 @@ export const getCategoryListByName = ( name ) => {
     return http.get("/category/search/" + name)
 }
 
-
+// ==================== book-info ====================
+export const getBookListData = ( params ) => {
+    return http.get("/book/list", { params })}
+export const addBook = ( data ) => {
+    return http.post("/book/add", data)
+}
+export const updateBook = ( data ) => {
+    return http.put("/book/update", data)
+}
+export const deleteBook = ( id ) => {
+    return http.delete("/book/del/" + id)
+}
 
 
 

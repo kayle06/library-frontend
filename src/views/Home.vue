@@ -57,6 +57,7 @@
 <script>
 import * as echarts from 'echarts'
 import * as axios from '@/api/index'
+import { getStatisticalData } from '@/api'
 
 export default {
   name: "Home",
@@ -150,7 +151,7 @@ export default {
       console.log(orderData.date)
       echarts1.setOption({
         title: {
-          text: '周售出TOP5'
+          text: '周预约TOP5'
         },
         tooltip: {
           trigger: 'axis'
