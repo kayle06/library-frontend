@@ -9,7 +9,7 @@ import Role from "@/views/Role.vue"
 import BorrowAnalysis from "@/views/BorrowAnalysis.vue"
 import BookAnalysis from "@/views/BookAnalysis.vue"
 import Category from "@/views/Category.vue";
-import Return from "@/views/return.vue";
+import Return from "@/views/Return.vue";
 import Reservation from "@/views/Reservation.vue";
 import BookCirculation from "@/views/BookCirculation.vue";
 import PopularBookAnalysis from "@/views/PopularBookAnalysis.vue";

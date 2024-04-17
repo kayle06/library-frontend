@@ -1,5 +1,15 @@
 <template>
   <div class="manage">
+    <div class="manage-header">
+      <div></div>
+      <div class="margin-header-right">
+        <el-input v-model="searchName" placeholder="请输入要搜索的分类名称"
+                  style="width: 200px; margin-right: 10px"></el-input>
+        <el-row>
+          <el-button icon="el-icon-search" circle @click="handleSearch"></el-button>
+        </el-row>
+      </div>
+    </div>
 
     <el-dialog
         title="提示"
@@ -48,31 +58,32 @@
       <el-table-column
           prop="title"
           label="图书名"
-          width="350"/>
+          width="300"/>
       <el-table-column
-          prop="borrower"
+          prop="userName"
           label="归还者"
           width="130">
       </el-table-column>
       <el-table-column
-          prop="borrowDate"
-          label="归还时间"/>
-      <el-table-column
-          prop="dueData"
+          prop="dueDate"
           label="应还时间"/>
       <el-table-column
-          prop="status"
-          label="状态">
-        <template slot-scope="scope">
-          {{ scope.row.status | statusText }}
-        </template>
-      </el-table-column>
+          prop="createTime"
+          label="归还时间"/>
     </el-table>
-  </div>
+    <el-pagination
+        background
+        layout="prev, pager, next"
+        style="margin-top: 50px"
+        :current-page="1"
+        :page-size="pageSize"
+        :total="total"
+        @current-change="handleCurrentChange">
+    </el-pagination></div>
 </template>
 
 <script>
-import { getBorrowList } from "@/api";
+import {getBorrowListData, getReturnListData} from "@/api";
 
 export default {
   data() {
@@ -81,9 +92,27 @@ export default {
       form: {},
       tableData: [],
       modalType: 0, // 0 新增，1 编辑
+      pageNum: 1,
+      pageSize: 15,
+      currentPage: 1,
+      total: 0,
+      searchName: ''
     }
   },
   methods: {
+    getReturnListData() {
+        const params = {
+          returnName: this.searchName,
+          pageNum: this.pageNum,
+          pageSize: this.pageSize,
+        }
+      getReturnListData( params ).then(({data}) => {
+        console.log(data)
+        this.tableData = data.data.list
+      }).catch(() => {
+        this.$message.error('获取数据失败')
+      })
+    },
     submit() {
       this.$refs.form.validate((valid) => {
         if (valid) {
@@ -164,10 +193,41 @@ export default {
       const minutes = String(date.getMinutes()).padStart(2, '0');
       const seconds = String(date.getSeconds()).padStart(2, '0');
       return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
-    }
+    },
+    handleCurrentChange(val) {
+      const params = {
+        returnName: this.searchName,
+        pageNum: val,
+        pageSize: this.pageSize
+      }
+      this.currentPage = val
+      getReturnListData(params).then(({data}) => {
+        const {list, total, pages} = data.data
+        this.tableData = list
+        this.total = total
+        this.totalSize = pages
+      }).catch(() => {
+        this.$message.error('获取借阅信息失败')
+      })
+    },
+    handleSearch() {
+      const params = {
+        pageNum: 1,
+        pageSize: this.pageSize,
+        returnName: this.searchName
+      }
+      getReturnListData(params).then(({data}) => {
+        const {list, total, pages} = data.data
+        this.tableData = list
+        this.total = total
+        this.totalSize = pages
+      }).catch(() => {
+        this.$message.error('获取图书信息失败')
+      })
+    },
   },
   mounted() {
-    this.getBorrowList()
+    this.handleCurrentChange()
   },
   filters: {
     statusText(status) {
@@ -189,5 +249,16 @@ export default {
 
 .manage-header {
   text-align: left;
+}
+
+.manage-header {
+  display: flex;
+  justify-content: space-between;
+
+  .margin-header-right {
+    display: flex;
+    justify-content: space-between;
+    margin-right: 20px;
+  }
 }
 </style>

@@ -34,6 +34,9 @@ export const getCategoryListByName = ( name ) => {
 // ==================== book-info ====================
 export const getBookListData = ( params ) => {
     return http.get("/book/list", { params })}
+export const getAllBooksData = () => {
+    return http.get("/book/listAll")
+}
 export const addBook = ( data ) => {
     return http.post("/book/add", data)
 }
@@ -43,6 +46,50 @@ export const updateBook = ( data ) => {
 export const deleteBook = ( id ) => {
     return http.delete("/book/del/" + id)
 }
+
+// ==================== borrow ====================
+export const getBorrowListData = ( params ) => {
+    return http.get("/borrow/list", { params })
+}
+export const addBorrow = ( data ) => {
+    return http.post("/borrow/add", data)
+}
+export const returnBook = ( data ) => {
+    return http.put("/borrow/return/" + data)
+}
+export const updateBorrow = ( data ) => {
+    return http.put("/borrow/update", data)
+}
+
+
+// ==================== return ====================
+export const getReturnListData = ( params ) => {
+    return http.get("/restitution/list", { params })
+}
+
+
+
+
+
+
+// ==================== user ====================
+export const getAllUsersData = () => {
+    return http.get("/user/listAll")
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

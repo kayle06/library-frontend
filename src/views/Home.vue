@@ -136,7 +136,7 @@ export default {
     this.getTodayData()
     getStatisticalData().then(({data}) => {
       const {orderData, userData, videoData, tableData} = data.data
-      this.tableData = tableData
+      // this.tableData = tableData
 
       // 折线图
       const echarts1 = echarts.init(this.$refs.echarts1)
