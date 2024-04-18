@@ -1,7 +1,16 @@
 <template>
   <div class="manage">
     <div class="manage-header">
-      <el-button type="primary" @click="handleAdd" style="text-align: left">+ 新增用户</el-button>
+      <div class="manage-header-left">
+        <el-button type="primary" @click="handleAdd" style="text-align: left">+ 新增用户</el-button>
+      </div>
+      <div class="margin-header-right">
+        <el-input v-model="searchStudentNo" placeholder="请输入要搜索的分类名称"
+                  style="width: 200px; margin-right: 10px"></el-input>
+        <el-row>
+          <el-button icon="el-icon-search" circle @click="handleSearch"></el-button>
+        </el-row>
+      </div>
     </div>
 
     <el-dialog
@@ -17,32 +26,22 @@
           <el-input v-model="form.password"></el-input>
         </el-form-item>
         <el-form-item label="学号" prop="studentId">
-          <el-input v-model="form.studentId"></el-input>
+          <el-input v-model="form.studentNo"></el-input>
         </el-form-item>
         <el-form-item label="邮箱" prop="email">
           <el-input v-model="form.email"></el-input>
-        </el-form-item>
-        <el-form-item label="出生日期" prop="birthday">
-          <el-date-picker
-              v-model="form.birthday"
-              type="date"
-              placeholder="选择日期"
-              value-format="yyyy-MM-DD"/>
-        </el-form-item>
-        <el-form-item label="性别" prop="sex">
-          <el-select v-model="form.sex" placeholder="请选择性别">
-            <el-option label="男" :value="1"></el-option>
-            <el-option label="女" :value="0"></el-option>
-          </el-select>
         </el-form-item>
         <el-form-item label="电话" prop="phone">
           <el-input v-model="form.phone"></el-input>
         </el-form-item>
         <el-form-item label="角色" prop="role">
-          <el-select v-model="form.role" placeholder="请选择">
-            <el-option label="管理员" :value="0"></el-option>
-            <el-option label="教师" :value="2"></el-option>
-            <el-option label="学生" :value="1"></el-option>
+          <el-select v-model="form.status" placeholder="请选择">
+                <el-option
+                    v-for="item in roles"
+                    :key="item.roleId"
+                    :label="item.roleDescription"
+                    :value="item.roleId">
+                </el-option>
           </el-select>
         </el-form-item>
       </el-form>
@@ -56,33 +55,22 @@
         :data="tableData"
         height="90%">
       <el-table-column
-          prop="studentId"
+          prop="studentNo"
           label="学号"
           width="150"/>
       <el-table-column
           prop="username"
           label="姓名"
-          width="100"/>
-      <el-table-column
-          prop="sex"
-          label="性别"
-          width="100">
-        <template slot-scope="scope">
-          <span style="margin-left: 10px"> {{ scope.row.sex === 1 ? '男' : '女' }}</span>
-        </template>
-      </el-table-column>
+          width="150"/>
       <el-table-column
           prop="phone"
           label="电话"/>
       <el-table-column
-          prop="birthday"
-          label="出生日期"/>
-      <el-table-column
-          prop="role"
+          prop="status"
           label="角色">
         <template slot-scope="scope">
           <span style="margin-left: 10px">{{
-              scope.row.role === 0 ? '管理员' : scope.row.role === 1 ? '学生' : '教师'
+              scope.row.status === 1 ? '管理员' : scope.row.status === 2 ? '学生' : '未知'
             }}</span>
         </template>
       </el-table-column>
@@ -94,11 +82,20 @@
         </template>
       </el-table-column>
     </el-table>
+    <el-pagination
+        background
+        layout="prev, pager, next"
+        style="margin-top: 50px"
+        :current-page="currentPage"
+        :page-size="pageSize"
+        :total="total"
+        @current-change="handleCurrentChange">
+    </el-pagination>
   </div>
 </template>
 
 <script>
-import {getUserList, createUser, updateUser, deleteUser} from "@/api";
+import {updateUser, deleteUser, getUsersData, addUser, getAllRolesData} from "@/api";
 
 export default {
   name: "User",
@@ -108,6 +105,10 @@ export default {
       form: {},
       tableData: [],
       modalType: 0, // 0 新增，1 编辑
+      pageSize: 10,
+      total: 0,
+      searchStudentNo: '',
+      currentPage: 1,
       rule: {
         username: [
           {required: true, message: '请输入用户名', trigger: 'blur'}
@@ -115,32 +116,63 @@ export default {
         password: [
           {required: true, message: '请输入密码', trigger: 'blur'}
         ],
-        studentId: [
+        studentNo: [
           {required: true, message: '请输入学号', trigger: 'blur'}
-        ],
-        birthday: [
-          {required: true, message: '请选择出生日期', trigger: 'blur'}
         ],
         phone: [
           {required: true, message: '请输入电话', trigger: 'blur'}
         ],
-        role: [
+        status: [
           {required: true, message: '请选择角色', trigger: 'blur'}
         ]
-      }
+      },
+      roles: []
     }
   },
   methods: {
+    handleSearch() {
+      const params = {
+        pageNum: 1,
+        pageSize: this.pageSize,
+        studentNo: this.searchStudentNo
+      }
+      getUsersData(params).then(({data}) => {
+        const {list, total, pages} = data.data
+        this.tableData = list
+        this.total = total
+        this.totalSize = pages
+      }).catch(() => {
+        this.$message.error('获取用户信息失败')
+      })
+    },
+    handleCurrentChange(val) {
+      const params = {
+        pageNum: val,
+        pageSize: this.pageSize,
+        studentNo: this.searchStudentNo,
+      }
+      this.currentPage = val
+      getUsersData(params).then(({data}) => {
+        console.log(data)
+        const {list, total, pages} = data.data
+        this.tableData = list
+        this.total = total
+        this.totalSize = pages
+      }).catch(() => {
+        this.$message.error('获取用户信息失败')
+      })
+    },
     submit() {
       this.$refs.form.validate((valid) => {
         if (valid) {
           if (this.modalType === 0) {
-            createUser(this.form).then(() => {
-              this.getUserList()
+            console.log(this.form)
+            addUser(this.form).then(() => {
+              this.handleCurrentChange(this.currentPage)
             })
           } else {
             updateUser(this.form).then(() => {
-              this.getUserList()
+              this.handleCurrentChange(this.currentPage)
             })
           }
           this.dialogVisible = false;
@@ -161,6 +193,12 @@ export default {
       this.form = {}
       this.modalType = 0
       this.dialogVisible = true
+      getAllRolesData().then(({data}) => {
+        console.log(data)
+        this.roles = data.data
+      }).catch(() => {
+        this.$message.error('获取角色信息失败')
+      })
     },
     handleEdit(row) {
       this.modalType = 1
@@ -173,8 +211,8 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        deleteUser({id: row.id}).then(() => {
-          this.getUserList()
+        deleteUser(row.userId).then(() => {
+          this.handleCurrentChange(this.currentPage)
           this.$message({
             type: 'success',
             message: '删除成功!'
@@ -187,15 +225,9 @@ export default {
         })
       })
     },
-    getUserList() {
-      getUserList().then(({data}) => {
-        const {list} = data
-        this.tableData = list
-      })
-    }
   },
   mounted() {
-    this.getUserList()
+    this.handleCurrentChange(1)
   }
 }
 </script>
@@ -204,7 +236,19 @@ export default {
 .manage {
   height: 90%;
 }
+
 .manage-header {
   text-align: left;
+}
+
+.manage-header {
+  display: flex;
+  justify-content: space-between;
+
+  .margin-header-right {
+    display: flex;
+    justify-content: space-between;
+    margin-right: 20px;
+  }
 }
 </style>

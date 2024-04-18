@@ -10,33 +10,8 @@
         :before-cloce="handleClose"
         width="50%">
       <el-form label-position="left" ref="form" :inline="true" :model="form" label-width="80px">
-        <el-form-item label="书名" prop="title">
-          <el-input v-model="form.title"></el-input>
-        </el-form-item>
-        <el-form-item label="类别" prop="category">
-          <el-input v-model="form.category"></el-input>
-        </el-form-item>
-        <el-form-item label="作者" prop="author">
-          <el-input v-model="form.author"></el-input>
-        </el-form-item>
-        <el-form-item label="出版社" prop="publisher">
-          <el-input v-model="form.publisher"></el-input>
-        </el-form-item>
-        <el-form-item label="出版时间" prop="publishDate">
-          <el-date-picker
-              v-model="form.publishDate"
-              type="date"
-              placeholder="选择日期"
-              value-format="yyyy-MM-DD"/>
-        </el-form-item>
-        <el-form-item label="价格" prop="price">
-          <el-input v-model="form.price"></el-input>
-        </el-form-item>
-        <el-form-item label="库存" prop="stock">
-          <el-input v-model="form.stock"></el-input>
-        </el-form-item>
-        <el-form-item label="书架位置" prop="shelfLocation">
-          <el-input v-model="form.shelfLocation"></el-input>
+        <el-form-item label="角色名称" prop="title">
+          <el-input v-model="form.roleDescription"></el-input>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
@@ -49,7 +24,7 @@
         :data="tableData"
         height="90%">
       <el-table-column
-          prop="roleName"
+          prop="roleDescription"
           label="角色名称"
           width="250"/>
       <el-table-column
@@ -60,11 +35,20 @@
         </template>
       </el-table-column>
     </el-table>
+    <el-pagination
+        background
+        layout="prev, pager, next"
+        style="margin-top: 50px"
+        :current-page="1"
+        :page-size="pageSize"
+        :total="total"
+        @current-change="handleCurrentChange">
+    </el-pagination>
   </div>
 </template>
 
 <script>
-import { getRoleList } from "@/api";
+import {getRolesData, addRole, deleteRole, updateRole, getBorrowListData} from "@/api";
 
 export default {
   data() {
@@ -73,19 +57,37 @@ export default {
       form: {},
       tableData: [],
       modalType: 0, // 0 新增，1 编辑
+      pageSize: 10,
+      total: 0,
+      currentPage: 1
     }
   },
   methods: {
+    handleCurrentChange(val) {
+      const params = {
+        pageNum: val,
+        pageSize: this.pageSize
+      }
+      this.currentPage = val
+      getRolesData(params).then(({data}) => {
+        const {list, total, pages} = data.data
+        this.tableData = list
+        this.total = total
+        this.totalSize = pages
+      }).catch(() => {
+        this.$message.error('获取角色列表失败')
+      })
+    },
     submit() {
       this.$refs.form.validate((valid) => {
         if (valid) {
           if (this.modalType === 0) {
-            createUser(this.form).then(() => {
-              this.getUserList()
+            addRole(this.form).then(() => {
+              this.handleCurrentChange(this.currentPage)
             })
           } else {
-            updateUser(this.form).then(() => {
-              this.getUserList()
+            updateRole(this.form).then(() => {
+              this.handleCurrentChange(this.currentPage)
             })
           }
           this.dialogVisible = false;
@@ -118,8 +120,8 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        deleteUser({id: row.id}).then(() => {
-          this.getUserList()
+        deleteRole(row.roleId).then(() => {
+          this.handleCurrentChange(this.currentPage)
           this.$message({
             type: 'success',
             message: '删除成功!'
@@ -132,15 +134,9 @@ export default {
         })
       })
     },
-    getRoleList() {
-      getRoleList().then(({data}) => {
-        console.log(data)
-        this.tableData = data.data
-      })
-    }
   },
   mounted() {
-    this.getRoleList()
+    this.handleCurrentChange(1)
   },
   filters: {
     // 将类别数字转换为中文

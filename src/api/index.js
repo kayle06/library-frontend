@@ -68,7 +68,13 @@ export const getReturnListData = ( params ) => {
 }
 
 
-
+// ==================== reservation ====================
+export const getReservationListData = ( params ) => {
+    return http.get("/reservation/list", { params })
+}
+export const agreeReservation = ( data ) => {
+    return http.put("/reservation/agree/" + data)
+}
 
 
 
@@ -76,10 +82,37 @@ export const getReturnListData = ( params ) => {
 export const getAllUsersData = () => {
     return http.get("/user/listAll")
 }
+export const getUsersData = ( params ) => {
+    return http.get("/user/list", { params })
+}
+export const addUser = ( data ) => {
+    return http.post("/user/add", data)
+}
+export const updateUser = ( data ) => {
+    return http.put("/user/update", data)
+}
+export const deleteUser = ( id ) => {
+    return http.delete("/user/delete/" + id)
+}
 
 
 
-
+// ==================== role ====================
+export const getRolesData = ( params ) => {
+    return http.get("/role/list", { params })
+}
+export const getAllRolesData = () => {
+    return http.get("/role/listAll")
+}
+export const addRole = ( data ) => {
+    return http.post("/role/add", data)
+}
+export const updateRole = ( data ) => {
+    return http.put("/role/update", data)
+}
+export const deleteRole = ( id ) => {
+    return http.delete("/role/delete/" + id)
+}
 
 
 
@@ -105,12 +138,12 @@ export const getStatisticalData = () => {
 export const getUserList = (params) => {
     return http.get('/admin/user/list', { params })
 }
-export const deleteUser = (data) => {
-    return http.post('/admin/user/delete', data)
-}
-export const updateUser = (data) => {
-    return http.post('/admin/user/update', data)
-}
+// export const deleteUser = (data) => {
+//     return http.post('/admin/user/delete', data)
+// }
+// export const updateUser = (data) => {
+//     return http.post('/admin/user/update', data)
+// }
 export const createUser = (data) => {
     return http.post('/admin/user/add', data)
 }
