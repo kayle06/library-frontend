@@ -7,6 +7,23 @@ export const getTop5Data = () => {
 export const getTodayData = () => {
     return http.get("/book/todayData")
 }
+export const getBorrowAndReturnData = () => {
+    return http.get("/book/borrowAndReturn")
+}
+export const getBorrowTopFive =() => {
+    return http.get("/book/borrowTopFive")
+}
+export const getPopularBooks = () => {
+    return http.get("/book/popularBooks")
+}
+export const getCategoryAnalyse = () => {
+    return http.get("/book/categoryAnalyse")
+}
+export const getBookCirculation = () => {
+    return http.get("/book/bookCirculation")
+}
+
+
 
 // ==================== book-category ====================
 export const getCategoryData = ( params ) => {
@@ -151,9 +168,9 @@ export const createUser = (data) => {
 export const getBookAnalysis = () => {
     return http.get('/admin/analysis/book')
 }
-export const getBookCirculation = () => {
-    return http.get('/admin/analysis/bookCirculation')
-}
+// export const getBookCirculation = () => {
+//     return http.get('/admin/analysis/bookCirculation')
+// }
 
 export const getPopularBookAnalysis = () => {
     return http.get('/admin/analysis/popularBook')

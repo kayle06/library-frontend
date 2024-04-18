@@ -6,13 +6,27 @@
 
 <script>
 import * as echarts from 'echarts';
-import {getPopularBookAnalysis} from "@/api";
+import { getPopularBookAnalysis, getPopularBooks } from "@/api";
 
 export default {
+  data() {
+    return {
+      barChart: []
+    }
+  },
+  methods: {
+    getPopularBooks() {
+      getPopularBooks().then(({data}) => {
+        console.log(data)
+        this.barChart = data.data
+      }).catch(() => {
+        this.$message.error('获取热门图书失败')
+      })
+    }
+  },
   mounted() {
+    this.getPopularBooks()
     getPopularBookAnalysis().then(response => {
-      console.log(response)
-      const {data, dimensions} = response.data.data
       echarts.init(this.$refs.sortBarChart).setOption({
         title: {
           text: '热门图书排行榜'
@@ -20,22 +34,20 @@ export default {
         tooltip: {
           trigger: 'axis',
           formatter: function (params) {
-            console.log(params)
-            var dataIndex = params[0].dataIndex;
-            var borrowNum = params[0].value[1];
-            var bookName = params[0].axisValue;
-            return bookName + '<br/>' + borrowNum;
+            var bookName = params[0].data.title;
+            var borrowCount = params[0].data.borrowCount;
+            return bookName + '<br/>' + borrowCount;
           }
         },
         dataset: [
           {
-            dimensions: dimensions,
-            source: data
+            dimensions: ['title', 'borrowCount'],
+            source: this.barChart
           },
           {
             transform: {
               type: 'sort',
-              config: {dimension: 'borrowNum', order: 'desc'}
+              config: {dimension: 'borrowCount', order: 'desc'}
             }
           }
         ],
@@ -45,7 +57,6 @@ export default {
             interval: 0,
             rotate: 25,
             formatter: function (value) {
-              // 在这里可以自定义文字的显示方式，比如截取前几个字符或者添加省略号
               return value.length > 6 ? value.substr(0, 6) + '...' : value;
             }
           }
@@ -58,7 +69,7 @@ export default {
         }
       })
     })
-  }
+  },
 }
 </script>
 

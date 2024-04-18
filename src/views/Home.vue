@@ -44,6 +44,7 @@
 
       <div class="graph">
         <el-card style="height: 280px">
+<!--          柱状图-->
           <div ref="echarts2" style="height: 260px; width: 100%"></div>
         </el-card>
         <el-card style="height: 280px">
@@ -57,7 +58,7 @@
 <script>
 import * as echarts from 'echarts'
 import * as axios from '@/api/index'
-import { getStatisticalData } from '@/api'
+import { getStatisticalData, getBorrowAndReturnData, getBorrowTopFive } from '@/api'
 
 export default {
   name: "Home",
@@ -72,44 +73,66 @@ export default {
       countData: [
         {
           name: '今日新增图书',
-          value: 31,
+          value: 0,
           icon: 'success',
           "color": "#67c23a"
         },
         {
           name: '今日借阅图书',
-          value: 290,
+          value: 0,
           icon: 'success',
           "color": "#67c23a"
         },
         {
           name: '今日归还图书',
-          value: 491,
+          value: 0,
           icon: 'success',
           "color": "#67c23a"
         },
         {
           name: '今日预约图书',
-          value: 83,
+          value: 0,
           icon: 'success',
           "color": "#67c23a"
         },
         {
           name: '今日逾期图书',
-          value: 11,
+          value: 0,
           icon: 'success',
           "color": "#67c23a"
         },
         {
           name: '今日新增用户',
-          value: 110,
+          value: 0,
           icon: 'success',
           "color": "#67c23a"
         },
-      ]
+      ],
+      barChartData: {},
+      pieChart: [],
     }
   },
   methods: {
+    getBorrowTopFive() {
+      getBorrowTopFive().then(({data}) => {
+        console.log(data)
+        this.pieChart = data.data.map(item => {
+          return {
+            name: item.title,
+            value: item.borrowCount
+          }
+        })
+      }).catch((error) => {
+        this.$message.error(error.message)
+      })
+    },
+    getBorrowAndReturnData() {
+      getBorrowAndReturnData().then(({data}) => {
+        this.barChartData = data.data
+      }).catch((error) => {
+        this.$message.error(error.message)
+      })
+    },
     getTop5Data() {
       axios.getTop5Data().then(({data}) => {
         this.tableData = data.data
@@ -132,6 +155,8 @@ export default {
     }
   },
   mounted() {
+    this.getBorrowTopFive()
+    this.getBorrowAndReturnData()
     this.getTop5Data()
     this.getTodayData()
     getStatisticalData().then(({data}) => {
@@ -203,7 +228,8 @@ export default {
         },
         xAxis: {
           type: "category",
-          data: userData.map(item => item.date),
+          // data: userData.map(item => item.date),
+          data: this.barChartData.map(item => item.day),
           axisLine: {
             lineStyle: {
               color: '#17b3a3'
@@ -229,12 +255,12 @@ export default {
           {
             name: '借阅数量',
             type: 'bar',
-            data: userData.map(item => item.borrowNum)
+            data: this.barChartData.map(item => item.borrowCount)
           },
           {
             name: '归还数量',
             type: 'bar',
-            data: userData.map(item => item.returnNum)
+            data: this.barChartData.map(item => item.returnCount)
           }
         ]
       }
@@ -259,7 +285,7 @@ export default {
               borderColor: '#fff',
               borderWidth: 2
             },
-            data: videoData,
+            data: this.pieChart,
           }
         ]
       }

@@ -7,13 +7,30 @@
 
 <script>
 import * as echarts from 'echarts';
-import {getBookAnalysis} from "@/api";
+import {getBookAnalysis, getCategoryAnalyse} from "@/api";
 
 export default {
   data() {
-    return {}
+    return {
+      chartData: []
+    }
+  },
+  methods: {
+    getCategoryAnalyse() {
+      getCategoryAnalyse().then(({data}) => {
+        console.log(data)
+        this.chartData = data.data.map(item => ({
+          category: item.category,
+          number: item.number
+        }))
+        console.log(this.chartData)
+      }).catch(() => {
+        this.$message.error('获取图书分类分析失败')
+      })
+    },
   },
   mounted() {
+    this.getCategoryAnalyse()
     getBookAnalysis().then(response => {
       const {data} = response.data
       const barChart = echarts.init(this.$refs.barChart)
@@ -37,7 +54,7 @@ export default {
         },
         xAxis: {
           type: 'category',
-          data: data.map(item => item.category),
+          data: this.chartData.map(item => item.category),
           axisTick: {
             alignWithLabel: true
           }
@@ -46,7 +63,7 @@ export default {
           type: 'value'
         },
         series: [{
-          data: data.map(item => item.number),
+          data: this.chartData.map(item => item.number),
           type: 'bar'
         }]
       })
@@ -62,7 +79,7 @@ export default {
         legend: {
           orient: 'vertical',
           left: 'left',
-          data: data.map(item => item.category)
+          data: this.chartData.map(item => item.category)
         },
         series: [
           {
@@ -70,7 +87,7 @@ export default {
             type: 'pie',
             radius: '55%',
             center: ['50%', '60%'],
-            data: data.map(item => ({name: item.category, value: item.number})),
+            data: this.chartData.map(item => ({name: item.category, value: item.number})),
             emphasis: {
               itemStyle: {
                 shadowBlur: 10,

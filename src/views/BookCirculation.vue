@@ -9,19 +9,34 @@ import * as echarts from 'echarts';
 import { getBookCirculation } from '@/api';
 
 export default {
+  data() {
+    return {
+      chartData: {}
+    }
+  },
+  methods: {
+    getBookCirculation() {
+      getBookCirculation().then(({ data}) => {
+        console.log(data)
+        this.chartData = data.data
+      }).catch(error => {
+        this.$message.error('获取图书流通信息失败')
+      })
+    },
+  },
   mounted() {
     getBookCirculation().then(response => {
       console.log(response)
-      const { data, categories } = response.data.data
+      const { items, years } = response.data.data
 
       const series = [];
-      data.forEach(item => {
+      items.forEach(item => {
         series.push({
           name: item.name,
           type: 'bar',
           label: item.name,
           emphasis: { focus: 'series'},
-          data: item.values
+          data: item.value
         })
       })
 
@@ -34,7 +49,7 @@ export default {
           }
         },
         legend: {
-          data: data.map(item => item.name)
+          data: items.map(item => item.name)
         },
         toolbox: {
           show: true,
@@ -53,7 +68,7 @@ export default {
           {
             type: 'category',
             axisTick: { show: false },
-            data: categories
+            data: years
           }
         ],
         yAxis: [
