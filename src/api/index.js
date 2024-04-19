@@ -22,6 +22,9 @@ export const getCategoryAnalyse = () => {
 export const getBookCirculation = () => {
     return http.get("/book/bookCirculation")
 }
+export const getBookReservation = () => {
+    return http.get("/book/bookReservation")
+}
 
 
 

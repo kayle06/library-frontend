@@ -58,7 +58,7 @@
 <script>
 import * as echarts from 'echarts'
 import * as axios from '@/api/index'
-import { getStatisticalData, getBorrowAndReturnData, getBorrowTopFive } from '@/api'
+import { getStatisticalData, getBorrowAndReturnData, getBorrowTopFive, getBookReservation } from '@/api'
 
 export default {
   name: "Home",
@@ -159,13 +159,27 @@ export default {
     this.getBorrowAndReturnData()
     this.getTop5Data()
     this.getTodayData()
-    getStatisticalData().then(({data}) => {
-      const {orderData, userData, videoData, tableData} = data.data
-      // this.tableData = tableData
-
+    getBookReservation().then(({data}) => {
+      console.log(data)
       // 折线图
       const echarts1 = echarts.init(this.$refs.echarts1)
-      const series = []
+      echarts1.setOption({
+        xAxis: {
+          type: 'category',
+          data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+        },
+        yAxis: {
+          type: 'value'
+        },
+        series: [
+          {
+            data: data.data,
+            type: 'line',
+            smooth: true,
+          }
+        ]
+      })
+      /*const series = []
       orderData.data.map(item => {
         series.push({
           name: item.bookName,
@@ -205,7 +219,7 @@ export default {
           type: 'value'
         },
         series: series
-      })
+      })*/
 
       // 柱状图
       const echarts2 = echarts.init(this.$refs.echarts2)
