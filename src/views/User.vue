@@ -70,7 +70,7 @@
           label="角色">
         <template slot-scope="scope">
           <span style="margin-left: 10px">{{
-              scope.row.status === 1 ? '管理员' : scope.row.status === 2 ? '学生' : '未知'
+              scope.row.status === 0 ? '管理员' : scope.row.status === 1 ? '学生' : '未知'
             }}</span>
         </template>
       </el-table-column>

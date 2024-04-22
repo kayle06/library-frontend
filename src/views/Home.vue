@@ -164,6 +164,12 @@ export default {
       // 折线图
       const echarts1 = echarts.init(this.$refs.echarts1)
       echarts1.setOption({
+        title: {
+          text: '周图书预约趋势'
+        },
+        tooltip: {
+          trigger: 'axis'
+        },
         xAxis: {
           type: 'category',
           data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']

@@ -1,7 +1,7 @@
 <template>
   <div class="header-content">
     <div class="left-content">
-      <el-button @click="handleMenu" icon="el-icon-menu" size="mini"></el-button>
+<!--      <el-button @click="handleMenu" icon="el-icon-menu" size="mini"></el-button>-->
     </div>
     <div class="right-content">
       <el-dropdown>
